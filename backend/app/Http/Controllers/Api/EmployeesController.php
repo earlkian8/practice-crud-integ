@@ -69,6 +69,15 @@ class EmployeesController extends Controller
             $directory = "employees";
             $uploaded  = $request->file('image');
 
+            // Delete previous image if exists
+            if ($employee->image) {
+                $oldImagePath = $directory . '/' . $employee->image;
+                if (Storage::disk($disk)->exists($oldImagePath)) {
+                    Storage::disk($disk)->delete($oldImagePath);
+                }
+            }
+
+            // Store new image
             $validated['image'] = basename($uploaded->store($directory, $disk));
         }
 
@@ -80,6 +89,16 @@ class EmployeesController extends Controller
     public function destroy($id)
     {
         $employee = Employee::findOrFail($id);
+        
+        // Delete image if exists
+        if ($employee->image) {
+            $disk = env('FILESYSTEM_DISK', 'public');
+            $imagePath = "employees/" . $employee->image;
+            if (Storage::disk($disk)->exists($imagePath)) {
+                Storage::disk($disk)->delete($imagePath);
+            }
+        }
+        
         $employee->delete();
 
         return response()->json(['message' => 'Employee deleted successfully']);
