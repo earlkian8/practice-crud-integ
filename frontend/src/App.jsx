@@ -5,7 +5,7 @@ const App = () => {
     return (
         <>  
             <AddEmployee></AddEmployee>
-            <Employees></Employees>
+            {/* <Employees></Employees> */}
         </>
     )
 }

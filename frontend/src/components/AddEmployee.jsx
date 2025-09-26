@@ -42,74 +42,98 @@ const AddEmployee = () => {
             console.log('Failed to add employee: ', error);
             setMessage('Failed to add employee');
         }
+
+        setTimeout(() => { setMessage("") }, 2000)
     }
 
-
     return (
-        <div>
-            <form encType="multipart/form-data" onSubmit={handleSubmit}>
-                <h2>Add Employee</h2>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+            <form 
+                encType="multipart/form-data" 
+                onSubmit={handleSubmit} 
+                className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md"
+            >
+                <h2 className="font-bold text-center text-2xl mb-6">Add Employee</h2>
 
-                <input
-                    type="text"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                /><br />
-
-                <input
-                    type="text"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                /><br />
+                <div className="flex gap-3 mb-4">
+                    <input
+                        type="text"
+                        placeholder="First Name"
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        className="w-1/2 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                    <input
+                        type="text"
+                        placeholder="Last Name"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        className="w-1/2 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                </div>
 
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                /><br />
+                    className="w-full border rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
 
                 <input
                     type="text"
                     placeholder="Phone"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                /><br />
+                    className="w-full border rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
 
                 <input
                     type="text"
                     placeholder="Position"
                     value={position}
                     onChange={(e) => setPosition(e.target.value)}
-                /><br />
+                    className="w-full border rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
 
                 <input
                     type="number"
                     placeholder="Salary"
                     value={salary}
                     onChange={(e) => setSalary(e.target.value)}
-                /><br />
+                    className="w-full border rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
 
                 <input
                     type="date"
                     value={dateHired}
                     onChange={(e) => setDateHired(e.target.value)}
-                /><br />
+                    className="w-full border rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+
 
                 <input
                     type="file"
                     accept="image/*"
                     onChange={(e) => setImage(e.target.files[0])}
-                /><br />
+                    className="w-full mb-4"
+                />
 
-                <button type="submit">Add Employee</button>
+                <button 
+                    type="submit" 
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded transition duration-200 cursor-pointer"
+                >
+                    Add Employee
+                </button>
 
-                {message && <p>{message}</p>}
+                {message && (
+                    <p className={`mt-4 text-center ${message.includes("successfully") ? "text-green-600" : "text-red-600"}`}>
+                        {message}
+                    </p>
+                )}
             </form>
         </div>
-    )
+    );
 }
 
 export default AddEmployee
